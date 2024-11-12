@@ -28,6 +28,7 @@ open class DeviceInfoExtractor(context: Context) {
         var mWidth = 0
         var mDensity = 0
 
+
         if (customIdentifier.isNotEmpty()) {
             mUdid = customIdentifier
         } else {
@@ -56,8 +57,8 @@ open class DeviceInfoExtractor(context: Context) {
             DeviceInfo.UNKNOWN_VALUE
         }
 
-        val manager = contextRef?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val mCarrier = manager.networkOperatorName.ifEmpty { NetworkOperatorDefault }
+        val manager = contextRef?.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
+        val mCarrier = manager?.networkOperatorName?:"".ifEmpty { NetworkOperatorDefault }
 
         val metrics = contextRef?.resources?.displayMetrics
         if (metrics != null) {
